@@ -1,8 +1,11 @@
 export interface BoardOrder {
+  Email:string;
+  Name: string;
+  PNumber: number;
   Size: string;
   Type: string;
-  Meats: number;
-  Cheeses: string;
+  Meats: string[];
+  Cheeses: string[];
   Requests: string;
   Dislikes: number;
   Price: number;

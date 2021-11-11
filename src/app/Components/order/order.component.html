@@ -2,86 +2,94 @@
 <div class="container " style="margin-bottom:100px">
   <h1 class = "mx-auto text-center" style = "margin-bottom:20px">Order Request Form</h1>
   <div class = "text-center mx-auto" style="width:fit-content; height: 30px; margin-top: 20px; margin-bottom: 80px;">After this order form is filled out,  you will be contacted to go over details and availability before the order is confirmed.
-    <h3 class="text-center text-danger">72 hour notice</h3>
+    <h3 class="text-center text-danger">72 Hour Notice</h3>
     Any orders booked within 72 hours of the delivery date will incur a $20 rush fee if accomadation is possible.</div>
  </div>
  <!-- (ngSubmit)='onSubmit()' -->
 <form [formGroup]="boardForm" class="w-50 mx-auto mt-3">
-  <legend class="col-form-label fw-bold fs-5 col-sm-2 pt-0">Size </legend>
-  <select class="form-select" formControlName="Size" aria-label="Default select example">
+  <div class="mb-3">
+    <label  class="form-label">Name</label >
+     <input type="string" class="form-control" id="Name" formControlName='Name' placeholder="Enter your First and Last Name">
+  </div>
+  <div class="mb-3">
+    <label  class="form-label">Email</label >
+     <input type="email" class="form-control" id="Email" formControlName='Email' placeholder="Enter your Email">
+  </div>
+  <div class="mb-3">
+    <label  class="form-label">Phone Number</label >
+     <input type="phoneNumber" class="form-control" id="PNumber" formControlName='PNumber' placeholder="Enter your Phone Number (Only numbers)">
+  </div>
+  <div class="mb-3">
+    <label  class="form-label">Date</label >
+     <input type="date" class="form-control" id="Name" formControlName='CDate' placeholder="Enter the Date you would like to receive the Board">
+     <small id="datewarn" class="form-text text-muted">Please consider the 72 Hour Notice.</small>
+  </div>
+  <div class="mb-3">
+     <legend class="col-form-label fw-bold fs-5 col-sm-2 pt-0">Size </legend>
+     <select class="form-select" formControlName="Size" aria-label="Default select example">
+        <option *ngFor="let size of boardSize" [ngValue]="size">{{size}}</option>
+     </select>
+    <img id="size-example" src={{activeImage}} class="d-block mx-auto rounded w-40 h-40" alt="..." style = "margin-top: 20px;"><img>
+  </div>
+  <div class="mb-3">
+    <legend class="col-form-label fw-bold fs-5 col-sm-2 pt-0">Type </legend>
+    <select class="form-select" formControlName="Type" aria-label="Default select example " placeholder="Select a Type of Board">
+       <option>Regular</option>
+       <option>Breakfast</option>
+       <option>Vegan</option>
+    </select>
+ </div>
+ <div class="mb-3">
+  <legend class="col-form-label fw-bold fs-5 col-sm-2 pt-0">Meats/Options </legend>
+  <select *ngIf="!meatCheck" class="form-select" id = "Meats" formControlName="Meats" aria-label="Default select example" placeholder="Select your Meats">
+     <option *ngFor="let meat of activeOptions" [ngValue]="meat">{{meat}}</option>
+  </select>
+  <div>
+  Selected
+  </div>
+  <fieldset disabled>
+    <select multiple class="form-select">
+    <option *ngFor="let meats of selectedMeats" [ngValue]="meats">
+      {{meats}}
+    </option>
+   </select>
+   <small id="datewarn" class="form-text text-muted">Select an option again to remove it.</small>
+  </fieldset>
+  </div>
 
-      <option *ngFor="let size of boardSize" [ngValue]="size">{{size}}</option>
-  </select>
-  <div class="container mx-auto w-50 h-50 ">
-  <img id="size-example" src={{activeImage}} class="d-block mx-auto rounded w-40 h-40" alt="..." style = "margin-top: 20px;"><img>
-  </div>
-  <!-- <legend class="col-form-label col-sm-2 pt-0">Model</legend>
-  <select class="form-select" formControlName="model" aria-label="Default select example">
-      <option selected>Models</option>
-      <option *ngFor="let model of carModels" [ngValue]="model">{{model}}</option>
-  </select>
   <div class="mb-3">
-      <label  class="form-label">Year</label >
-       <input type="number" class="form-control" id="year" formControlName='year'>
-       <div class="alert alert-danger" *ngIf='carForm.controls.year.invalid && carForm.controls.year.dirty'>
-         Please enter year.
-       </div>
-  </div>
+    <legend class="col-form-label fw-bold fs-5 col-sm-2 pt-0">Cheeses </legend>
+    <select class="form-select" id = "Cheeses" formControlName="Cheeses" aria-label="Default select example" placeholder="Select your Cheeses">
+       <option *ngFor="let cheese of cheeses" [ngValue]="cheese">{{cheese}}</option>
+    </select>
+    Selected
+    <fieldset disabled>
+      <select multiple class="form-select">
+      <option *ngFor="let cheeses of selectedCheeses" [ngValue]="cheeses">
+        {{cheeses}}
+      </option>
+     </select>
+     <small id="datewarn" class="form-text text-muted">Select an option again to remove it.</small>
+    </fieldset>
+    </div>
+
   <div class="mb-3">
-      <label  class="form-label">Mileage</label >
-       <input type="number" class="form-control" id="mileage" formControlName='mileage'>
-       <div class="alert alert-danger" *ngIf='carForm.controls.mileage.invalid && carForm.controls.mileage.dirty'>
-         Please enter Mileage
-       </div>
+  <div class="form-group">
+      <label for="exampleFormControlTextarea1">Any Special Requests?</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" formControlName="Requests" rows="3"></textarea>
   </div>
+  </div>
+
   <div class="mb-3">
-      <label  class="form-label">Color</label >
-       <input type="text" class="form-control" id="color" formControlName='color'>
-       <div class="alert alert-danger" *ngIf='carForm.controls.color.invalid && carForm.controls.color.dirty'>
-         Please enter Color.
-       </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Alergies or Dislikes?</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" formControlName="Dislikes" rows="3"></textarea>
   </div>
+  </div>
+
+
   <div class="mb-3">
-      <label class="form-label" for="specificSizeInputGroupUsername">Value</label>
-      <div class="input-group">
-          <div class="input-group-text">$</div>
-          <input type="number" formControlName="value" class="form-control" id="specificSizeInputGroupUsername">
-      </div>
-      <div class="alert alert-danger" *ngIf='carForm.controls.value.invalid && carForm.controls.value.dirty'>
-          Please enter value.
-      </div>
+    <h2>Price: ${{boardPrice}}</h2> <button class="btn btn-primary">Submit</button>
   </div>
-  <div class="mb-3">
-      <label class="form-label" for="specificSizeInputGroupUsername">Price</label>
-      <div class="input-group">
-          <div class="input-group-text">$</div>
-          <input type="number" formControlName="price" class="form-control" id="specificSizeInputGroupUsername">
-      </div>
-      <div class="alert alert-danger" *ngIf='boardForm.controls.price.invalid && carForm.controls.price.dirty'>
-          Please enter price.
-      </div>
-  </div>
-  <!-- <div class="input-group">
-      <label  class="form-label">Images</label>
-      <div *ngFor="let image of imageArrayHolder" class="input-group mt-2">
-          <input  type="text" [formControlName]="image" class="form-control" id="image" formControlName='image1'>
-          <div class="input-group">
-              <div class="alert alert-danger" *ngIf='carForm.controls[image].invalid && carForm.controls[image].dirty'>
-                  Please make sure all your image urls are valid.
-              </div>
-          </div>
-      </div>
-      <button class="btn btn-primary mt-2 mx-auto"  type="button">Add more images</button>
-    </div> -->
-  <!-- <div class="form-check">
-      <input class="form-check-input" formControlName="used" type="checkbox" value="true" name="Used" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-          Used
-      </label>
-  </div>
-  <div class="alert alert-primary" >
-      Car was added!
-  </div>
-  <div class="alert alert-danger" >Something went wrong. Try again.</div>
-  <input type="submit" value="Add Car" class="btn btn-primary">
-</form> -->
+
+
