@@ -47,7 +47,18 @@ export class OrderComponent implements OnInit {
   boardType: string[] = ["Regular", "Breakfast/Brunch", "Vegan"];
 
   breakfastOptions: string[] = [];
-  activeOptions: string[] = [];
+  activeOptions: string[] = [
+  'Pepperoni',
+  'Prosciutto',
+  'Peppered Salami',
+  'Calabrese',
+  'Hot Capacola',
+  'Sweet Capacola',
+  'Soprasata',
+  'Italian Dry Salami',
+  'Spicy Salami',
+  'Coppa',
+  'Genoa Salami'];
   meats: string[] =
   [
     'Pepperoni',
@@ -108,6 +119,7 @@ export class OrderComponent implements OnInit {
     this.boardForm.controls.Size.setValue(this.boardSize[0]);
     this.boardForm.controls.Price.setValue(20);
     this.boardForm.controls.Type.setValue("Regular");
+    this.activeOptions=this.meats;
     this.boardForm.get('Size')?.valueChanges.subscribe(changedData =>{
       this.activeImage='';
       this.boardSize.forEach((element, index) =>
